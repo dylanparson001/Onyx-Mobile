@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:MauiOnyx.ViewModels" x:DataType="viewmodels:LoginViewModel"
+             x:Class="MauiOnyx.Pages.LoginPage"
+             Title="Login">
+    <VerticalStackLayout Padding="10"
+                         Margin="25"
+                         >
+        <Label Text="{Binding AppTitle}"></Label>
+
+        <Label Text="Username"></Label>
+        <Entry Placeholder="Username"
+               Text="{Binding Username}"
+               ></Entry>
+        
+        <Label Text="Password"></Label>
+        <Entry Placeholder="Password"
+               Text="{Binding Password}"
+               IsPassword="True"
+               ></Entry>
+        
+        <Label Text="Company ID"></Label>
+        <Entry 
+            Placeholder="Company ID"
+            Text="{Binding CompanyId}"   
+               ></Entry>
+
+
+        <Button Text="Login" 
+                Command="{Binding LoginCommand}"
+                ></Button>
+
+    </VerticalStackLayout>
+</ContentPage>
