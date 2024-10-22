@@ -5,13 +5,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MauiOnyx.Pages"
     Shell.FlyoutBehavior="Flyout"
-    Title="MauiOnyx" >
+    Title="MauiOnyx" 
+    FlyoutBackgroundColor="{AppThemeBinding Light=#f2f2f2, Dark=#2a2a2a}"
+    Shell.ForegroundColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}">
 
+    <!--<ShellContent Title="Jobs"
+                  ContentTemplate="{DataTemplate local:JobListPage}"
+                  Route="Schedule/{id}" />-->
 
     <FlyoutItem Title="Schedule" >
         <ShellContent Route="SchedulePage" ContentTemplate="{DataTemplate local:SchedulePage}" />
     </FlyoutItem>
-
     <MenuItem Text="Logout"
               Command="{Binding LogoutCommand}"
               >

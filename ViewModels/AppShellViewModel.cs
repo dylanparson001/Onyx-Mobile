@@ -24,6 +24,7 @@ namespace MauiOnyx.ViewModels
 
         private void LogoutButtonClicked(object obj)
         {
+            Preferences.Default.Remove("Token");
             LoginViewModel loginViewModel = _serviceProvider.GetService<LoginViewModel>();
             Application.Current.MainPage = new LoginPage(loginViewModel);
         }

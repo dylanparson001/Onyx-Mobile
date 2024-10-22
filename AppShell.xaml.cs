@@ -18,6 +18,7 @@ namespace MauiOnyx
 
             Routing.RegisterRoute("LoginPage", typeof(LoginPage));
             Routing.RegisterRoute("SchedulePage", typeof(SchedulePage));
+            Routing.RegisterRoute("JobListPage", typeof(JobListPage));
         }
 
         private void OnShellNavigating(object? sender, ShellNavigatingEventArgs e)
@@ -32,7 +33,6 @@ namespace MauiOnyx
 
         private void Logout()
         {
-            // Reset the MainPage to LoginPage, effectively logging the user out
             Application.Current.MainPage = _serviceProvider.GetRequiredService<LoginPage>();
         }
     }

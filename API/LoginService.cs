@@ -1,4 +1,5 @@
-﻿using MauiOnyx.Models;
+﻿using MauiOnyx.Interfaces;
+using MauiOnyx.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,14 +14,14 @@ namespace MauiOnyx.API
         private readonly HttpClient _httpClient;
         public LoginService()
         {
+            var apiUri = Preferences.Get("ApiUri", "");
             _httpClient = new HttpClient()
             {
-                BaseAddress = new Uri("http://192.168.1.26:5200/api/")
+                BaseAddress = new Uri(apiUri),
             };
         }
         public async Task<User> Login(string username, string password, string companyId)
         {
-            var nullUser = new User();
             Login login = new Login()
             {
                 Username = username,
@@ -48,7 +49,7 @@ namespace MauiOnyx.API
             {
                 var message = ex.Message;
             }
-            return nullUser;
+            return null;
         }
     }
 }
