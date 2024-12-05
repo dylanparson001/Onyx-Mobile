@@ -16,5 +16,6 @@ public partial class SchedulePage : ContentPage
     protected override async void OnAppearing()
     {
         await (BindingContext as ScheduleViewModel)?.GetFieldStaff();
+        await (BindingContext as ScheduleViewModel)?.GetTechnicianJobs();
     }
 }

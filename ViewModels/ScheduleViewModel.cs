@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MauiOnyx.Interfaces;
 using MauiOnyx.Models;
+using MauiOnyx.Pages;
 using MauiOnyx.Services;
 using System;
 using System.Collections.Generic;
@@ -16,30 +17,25 @@ namespace MauiOnyx.ViewModels
     {
         private readonly IScheduleService _scheduleService;
         private readonly IAlertService _alertService;
-
-        public ICommand LoadJobsCommand { get; }
-        public ObservableCollection<Technicians> FieldStaff { get; set; } = new ObservableCollection<Technicians>();
-
+        // Dictionary for techs and their jobs
+        public ICommand LoadJobsCommand { get; set; }
+        public ObservableCollection<Technicians> FieldStaff { get; set; }
 
         public ScheduleViewModel(IScheduleService scheduleService, IAlertService alertService)
         {
             _scheduleService = scheduleService;
             _alertService = alertService;
-
-            //LoadJobsCommand = new Command(LoadTechnicianJobs);
+            FieldStaff = new ObservableCollection<Technicians>();
 
             LoadJobsCommand = new Command<string>(async (technicianId) => await NavigateToJobListPage(technicianId));
         }
 
         private async Task NavigateToJobListPage(string technicianId)
         {
-            await Shell.Current.GoToAsync($"JobListPage?TechId={technicianId}");
-        }
+            string test = "Test";
 
-        //private async void LoadTechnicianJobs(object obj)
-        //{
-        //    await Shell.Current.GoToAsync($"JobListPage?TechId={}")
-        //}
+            await Shell.Current.GoToAsync($"{nameof(JobPage)}/{technicianId}");
+        }
 
         public async Task GetFieldStaff()
         {
@@ -55,8 +51,31 @@ namespace MauiOnyx.ViewModels
             catch (Exception ex)
             {
                 _alertService.Alert(ex.Message, "Error", "OK");
+                throw;
             }
         }
 
+        public async Task GetTechnicianJobs()
+        {
+            if (FieldStaff.Count == 0)
+            {
+                return;
+            }
+
+            try
+            {
+                foreach (var technician in FieldStaff)
+                {
+                    var todaysDate = DateTime.Now;
+                    var listOfJobs = await _scheduleService.GetTechnicianJobsByDate(todaysDate.ToString(), technician.Id);
+
+                    technician.TodaysJobs = listOfJobs.Where(x => x.Assigned_Technician_Id == technician.Id).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

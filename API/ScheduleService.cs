@@ -45,12 +45,23 @@ namespace MauiOnyx.API
             {
                 return null;
             }
-            return JsonConvert.DeserializeObject<List<Technicians>>(jsonResponse);
+            var listOfTechnicians = JsonConvert.DeserializeObject<List<Technicians>>(jsonResponse);
+
+            return listOfTechnicians;
         }
 
-        public Task<List<Jobs>> GetTechnicianJobsByDate(string date, string technicianId)
+        public async Task<List<Jobs>> GetTechnicianJobsByDate(string date, string technicianId)
         {
-            throw new NotImplementedException();
+            var resposne = await _httpClient.GetAsync($"Jobs/GetJobsByTechnician?date={date}&technicianId={technicianId}");
+
+            resposne.EnsureSuccessStatusCode();
+            string jsonResponse = await resposne.Content.ReadAsStringAsync();
+
+            if (string.IsNullOrEmpty(jsonResponse))
+            {
+                return null;
+            }
+            return JsonConvert.DeserializeObject<List<Jobs>>(jsonResponse);
         }
     }
 }

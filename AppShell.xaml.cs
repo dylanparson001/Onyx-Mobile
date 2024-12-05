@@ -18,7 +18,7 @@ namespace MauiOnyx
 
             Routing.RegisterRoute("LoginPage", typeof(LoginPage));
             Routing.RegisterRoute("SchedulePage", typeof(SchedulePage));
-            Routing.RegisterRoute("JobListPage", typeof(JobListPage));
+            Routing.RegisterRoute("JobPage", typeof(JobPage));
         }
 
         private void OnShellNavigating(object? sender, ShellNavigatingEventArgs e)

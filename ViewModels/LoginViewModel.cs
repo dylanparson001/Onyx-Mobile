@@ -31,10 +31,10 @@ namespace MauiOnyx.ViewModels
             _serviceProvider = serviceProvider;
             _loginService = loginService;
 
-            Task.Run(async () =>
-            {
-                await CheckToken();
-            });
+            //Task.Run(async () =>
+            //{
+            //    await CheckToken();
+            //});
 
             try
             {
@@ -51,11 +51,16 @@ namespace MauiOnyx.ViewModels
         }
         private async Task CheckToken()
         {
+            var Ip = Preferences.Default.Get("ApiUri", "");
+            if (string.IsNullOrEmpty(Ip))
+            {
+                return;
+            }
             try
             {
                 var token = Preferences.Default.Get("Token", "");
                 HttpClient httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri("http://192.168.252.8:5200/api/");
+                httpClient.BaseAddress = new Uri($"{Ip}");
                 httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
                 var response = await httpClient.GetAsync("User/CheckStatus");
                 if (response.StatusCode != System.Net.HttpStatusCode.Unauthorized)

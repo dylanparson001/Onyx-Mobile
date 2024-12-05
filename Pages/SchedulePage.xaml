@@ -1,33 +1,51 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiOnyx.Pages.SchedulePage"
-             Title="Schedule">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="Schedule"
+             >
 
     <ContentPage.Content>
         <CollectionView ItemsSource="{Binding FieldStaff}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="25">
-                        <Grid.RowDefinitions>
-                            <RowDefinition>
+                    <toolkit:Expander>
+                        <toolkit:Expander.Header>
+                            <Label Text="{Binding FullName}" 
+                                   Padding="25" 
+                                   BackgroundColor="{AppThemeBinding Light=AliceBlue, Dark=Teal}"
+                                   Margin="10"
+                                   >
+                            </Label>
+                        </toolkit:Expander.Header>
 
-                            </RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="{Binding FullName}">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding LoadJobsCommand}"
-                                                      CommandParameter="{Binding Id}">
-                                    
-                                </TapGestureRecognizer>
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </Grid>
+                        <toolkit:Expander.Content>
+                            <CollectionView ItemsSource="{Binding TodaysJobs}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <VerticalStackLayout
+                                            Margin="25"
+                                            >
+                                            <Label Text="{Binding Description}" 
+                                                   Padding="25"
+                                                   Margin="5"
+                                                   >
 
+                                            </Label>
+                                            <Label Text="{Binding Address}"
+                                                   Padding="25"
+                                                   Margin="5"
+                                                   >
+
+                                            </Label>
+                                            <Button Text="Open Job"> </Button>
+                                        </VerticalStackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </toolkit:Expander.Content>
+                    </toolkit:Expander>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

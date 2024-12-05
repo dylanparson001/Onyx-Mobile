@@ -1,13 +1,13 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace MauiOnyx
+namespace MauiOnyx.Platforms.Android
 {
-    [Application(UsesCleartextTraffic =true)]
+    [Application(UsesCleartextTraffic = true)]
     public class MainApplication : MauiApplication
     {
 
-        public MainApplication(IntPtr handle, JniHandleOwnership ownership)
+        public MainApplication(nint handle, JniHandleOwnership ownership)
             : base(handle, ownership)
         {
         }

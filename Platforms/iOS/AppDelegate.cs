@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace MauiOnyx
+namespace MauiOnyx.Platforms.iOS
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate
